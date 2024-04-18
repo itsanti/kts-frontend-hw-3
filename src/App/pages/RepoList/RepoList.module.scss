@@ -1,0 +1,65 @@
+.rootWrapper {
+  background-color: #f6f8fa;
+}
+
+.root {
+  width: 1237px;
+  margin: 0 auto;
+  min-height: calc(100vh - 66px);
+}
+
+.pageTitle {
+  margin: 30px auto 60px auto;
+  display: inline-block;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 48px;
+  width: 100%;
+  text-align: center;
+}
+
+.repoType {
+  width: 300px;
+  margin-bottom: var(--space-l);
+}
+
+.search {
+  display: flex;
+  width: 100%;
+  gap: 19px;
+  margin-bottom: 36px;
+  .searchInput {
+    flex-grow: 1;
+  }
+}
+
+.reposGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 80px 79px;
+  margin-bottom: 40px;
+}
+
+.card {
+  width: 360px;
+  height: 100%;
+}
+
+.captionSlot {
+  display: flex;
+  align-items: center;
+}
+
+.starIcon {
+  margin-right: 4px;
+}
+
+.updated_at {
+  margin-left: 40px;
+}
+
+.pager {
+  display: block;
+  padding: 0 0 150px 0;
+  text-align: center;
+}

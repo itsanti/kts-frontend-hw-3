@@ -1,0 +1,85 @@
+@import "./Roboto/fonts";
+
+html,
+body {
+  font-family: "Roboto";
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+figure,
+pre {
+  margin: 0;
+}
+
+:root {
+  --border-radius: 6;
+  --brand: #1f883d;
+  --brand-hover: rgba(31, 136, 61, 0.7);
+  --brand-active: #08531d;
+  --space-xl: 24px;
+  --space-l: 20px;
+  --space-m: 16px;
+  --space-s: 14px;
+  --space-xs: 12px;
+  --space-xxs: 8px;
+
+  --color-white: #ffffff;
+  --color-primary: #000;
+  --color-secondary: #afadb5;
+  --color-accent: var(--brand);
+
+  --text-primary: var(--color-primary);
+  --text-secondary: var(--color-secondary);
+  --text-accent: var(--color-accent);
+
+  --loader-bg: var(--brand);
+
+  --button-primary-bg: var(--brand);
+  --button-primary-bg-hover: var(--brand-hover);
+  --button-primary-bg-disabled: #d9d9d9;
+  --button-primary-bg-active: var(--brand-active);
+
+  --button-primary-text: var(--color-white);
+  --button-primary-text-hover: var(--color-white);
+  --button-primary-text-disabled: var(--color-white);
+  --button-primary-text-active: var(--color-white);
+
+  --card-image-bg: #d9d9d9;
+  --card-bg: var(--color-white);
+
+  --input-text: var(--color-primary);
+  --input-bg: var(--color-white);
+  --input-placeholder: var(--color-secondary);
+  --input-border: var(--input-bg);
+  --input-bg-focus: var(--input-bg);
+  --input-border-focus: var(--brand);
+  --input-text-focus: var(--input-text);
+  --input-bg-disabled: var(--input-bg);
+  --input-border-disabled: var(--input-bg);
+  --input-text-disabled: rgba(0, 0, 0, 0.2);
+
+  --checkbox-bg: var(--color-white);
+  --checkbox-border: var(--checkbox-bg);
+  --checkbox-bg-hover: var(--checkbox-bg);
+  --checkbox-border-hover: var(--brand);
+  --checkbox-bg-disabled: rgba(255, 255, 255, 0.5);
+  --checkbox-border-disabled: rgba(255, 255, 255, 0);
+  --checkbox-check: var(--brand);
+  --checkbox-check-hover: var(--brand);
+  --checkbox-check-disabled: rgba(0, 0, 0, 0.2);
+
+  --dropdown-options-bg: var(--color-white);
+}

@@ -1,0 +1,23 @@
+.root {
+  display: inline-flex;
+  gap: 15px;
+}
+
+.pages {
+  display: flex;
+}
+
+.pageBtn {
+  &:not(.active) {
+    background-color: transparent;
+    color: var(--color-primary);
+  }
+}
+
+.pageBtnPrev,
+.pageBtnNext {
+  background-color: transparent;
+  &:hover {
+    background-color: transparent !important;
+  }
+}

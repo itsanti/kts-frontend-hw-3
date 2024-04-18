@@ -1,0 +1,74 @@
+.checkbox {
+  position: absolute;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 0;
+
+  & + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  & + label svg {
+    position: absolute;
+    display: none;
+    left: 0;
+    top: 0;
+  }
+
+  // Box.
+  & + label:before {
+    content: '';
+    display: inline-block;
+    vertical-align: text-top;
+    width: 38px;
+    height: 38px;
+    background: var(--checkbox-bg);
+    border: 1px solid var(--checkbox-border);
+  }
+
+  // Box hover
+  &:not(:disabled):hover + label:before {
+    background: var(--checkbox-bg-hover);
+    border: 1px solid var(--checkbox-border-hover);
+  }
+
+  &:not(:disabled):checked:hover + label:before {
+    border: 1px solid var(--checkbox-check-hover);
+  }
+
+  // Box checked
+  &:checked + label:before {
+    background: var(--checkbox-bg-hover);
+  }
+
+  &:checked + label svg {
+    display: block;
+    &.checked path {
+      stroke: var(--checkbox-check);
+    }
+  }
+
+  &:checked:disabled + label svg {
+    &.checked path {
+      stroke: var(--checkbox-check-disabled);
+    }
+  }
+
+  // Disabled state label.
+  &:disabled + label {
+    cursor: auto;
+  }
+
+  &:disabled + label:before {
+    background: var(--checkbox-bg-disabled);
+    border: 1px solid var(--checkbox-border-disabled);
+  }
+
+  &:checked:disabled + label:before {
+    background: var(--checkbox-bg-disabled);
+  }
+}
