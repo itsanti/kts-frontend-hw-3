@@ -1,0 +1,18 @@
+.root {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  li {
+    display: flex;
+    align-items: center;
+    color: #afadb5;
+    gap: var(--space-xxs);
+    margin-bottom: var(--space-xxs);
+    span {
+      font-weight: 600;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -6,10 +6,10 @@ import LinkIcon from 'components/icons/LinkIcon';
 import { ROUTES } from 'config/constants';
 import readmeHtml from 'config/mocks/readme';
 import ktsRepo from 'config/mocks/repo';
-import styles from './RepoPage.module.scss';
-import RepoStat from './components/RepoStat';
 import Contributors from './components/Contributors';
 import Languages from './components/Languages';
+import RepoStat from './components/RepoStat';
+import styles from './RepoPage.module.scss';
 
 const RepoPage: React.FC = () => {
     return (
@@ -30,7 +30,7 @@ const RepoPage: React.FC = () => {
                 <li key={index}>{topic}</li>
             ))}</ul>
             <section className={styles.repoStat}>
-                <RepoStat />
+                <RepoStat forks_count={ktsRepo.forks_count} watchers_count={ktsRepo.watchers_count} stargazers_count={ktsRepo.stargazers_count} />
             </section>
             <section className={styles.repoDevInfo}>
                 <Contributors />
