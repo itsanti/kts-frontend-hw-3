@@ -1,3 +1,5 @@
+// https://api.github.com/repos/ktsstudio/kts-school-frontend/contributors
+
 const contributors = [
   {
     login: 'n-merkulova',

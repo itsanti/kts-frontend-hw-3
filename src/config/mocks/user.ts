@@ -1,3 +1,5 @@
+// https://api.github.com/users/{user.login}
+
 const user = {
   login: 'n-merkulova',
   id: 36528697,

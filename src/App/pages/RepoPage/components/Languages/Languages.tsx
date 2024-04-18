@@ -1,6 +1,7 @@
+import axios from "axios";
 import React from "react";
 import Text from "components/Text";
-import languages from "config/mocks/languages";
+import { API_TOCKEN } from "config/constants";
 import colors from "./github-colors";
 import styles from './Languages.module.scss';
 
@@ -12,8 +13,9 @@ interface Colors {
 }
 
 interface PercentColors { [key: string]: string }
+interface PercentColorsNumber { [key: string]: number }
 
-const calculate = (languages: { [key: string]: number }): PercentColors => {
+const calculate = (languages: PercentColorsNumber): PercentColors => {
     const result: PercentColors = {};
     const total = Object.values(languages).reduce((acc, count) => {
         return acc + count
@@ -24,7 +26,20 @@ const calculate = (languages: { [key: string]: number }): PercentColors => {
     return result;
 }
 
-const Languages: React.FC = () => {
+const Languages: React.FC<{ langUrl: string; }> = ({ langUrl }) => {
+    const [languages, setLanguages] = React.useState<PercentColorsNumber | null>(null);
+    React.useEffect(() => {
+        axios.get<PercentColorsNumber>(langUrl, {
+            headers: { 'Authorization': `Bearer ${API_TOCKEN}` }
+        }).then(res => {
+            setLanguages(res.data);
+        });
+    }, [langUrl]);
+
+    if (!languages) {
+        return null;
+    }
+
     const percentLangs = calculate(languages);
     return (
         <div className={styles.root}>
