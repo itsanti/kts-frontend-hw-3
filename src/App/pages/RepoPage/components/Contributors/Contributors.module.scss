@@ -1,0 +1,30 @@
+.header,
+.user {
+  font-weight: 600;
+}
+
+.header {
+  margin-bottom: var(--space-xxs);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xxs);
+    margin-bottom: var(--space-xxs);
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

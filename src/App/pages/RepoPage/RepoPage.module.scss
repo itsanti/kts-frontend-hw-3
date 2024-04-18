@@ -53,7 +53,7 @@
   width: 804px;
   display: grid;
   column-gap: 80px;
-  grid-template-columns: 290px 1fr;
+  grid-template-columns: minmax(290px, max-content) 1fr;
   margin-bottom: var(--space-xl);
 }
 
