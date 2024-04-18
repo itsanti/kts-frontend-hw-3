@@ -58,7 +58,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
     const handle = (ev: Event) => {
       if (ev.target !== refInput.current) {
         setIsOpen(false);
-        onChange([]);
       }
     };
     document.addEventListener('click', handle, false);

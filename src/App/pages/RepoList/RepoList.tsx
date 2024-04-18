@@ -24,7 +24,7 @@ const RepoList: React.FC = () => {
                 <MultiDropdown
                     options={REPO_TYPES.map(t => ({ key: t, value: t }))}
                     value={value}
-                    onChange={setValue}
+                    onChange={(value) => setValue(value.length ? [value[0]] : [])}
                     getTitle={(values) => value.length < 1 ? "Type" : values.map(({ value }) => value).join(', ')}
                     className={styles.repoType}
                 />

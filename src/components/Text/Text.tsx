@@ -1,5 +1,5 @@
-import * as React from 'react'
 import classNames from 'classnames/bind';
+import * as React from 'react'
 import styles from './text.module.scss';
 
 const cx = classNames.bind(styles);
@@ -21,7 +21,7 @@ export type TextProps = {
     maxLines?: number;
 };
 
-const Tag = ({ tag, children, ...props }: TextProps & { style: any }) => (
+const Tag = ({ tag, children, ...props }: TextProps & { style: object }) => (
     React.createElement(tag as string, props, children)
 );
 
