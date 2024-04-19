@@ -1,10 +1,11 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Text from 'components/Text';
 import Icon from 'components/icons/Icon';
 import LinkIcon from 'components/icons/LinkIcon';
-import { API_TOCKEN, API_ROOT } from 'config/constants';
+import { API_ROOT } from 'config/constants';
+import { axiosGet } from 'utils/axios';
+import { log } from 'utils/log';
 import Contributors from './components/Contributors';
 import Languages from './components/Languages';
 import RepoStat from './components/RepoStat';
@@ -21,19 +22,17 @@ const RepoPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${API_ROOT}/repos/${owner}/${currentRepo}`, {
-            headers: { 'Authorization': `Bearer ${API_TOCKEN}` }
-        }).then(res => {
+        axiosGet(`${API_ROOT}/repos/${owner}/${currentRepo}`).then(res => {
             setRepo(res.data);
-            axios.get(res.data.contributors_url, {
-                headers: { 'Authorization': `Bearer ${API_TOCKEN}` }
-            }).then(res => {
+            axiosGet(res.data.contributors_url).then(res => {
                 setContributors(res.data);
             });
-            axios.get(`${API_ROOT}/repos/${owner}/${currentRepo}/readme`, {
-                headers: { 'Authorization': `Bearer ${API_TOCKEN}`, 'Accept': 'application/vnd.github.html+json' }
+            axiosGet(`${API_ROOT}/repos/${owner}/${currentRepo}/readme`, {
+                headers: { 'Accept': 'application/vnd.github.html+json' }
             }).then(res => {
                 setReadmeHtml(res.data);
+            }).catch(() => {
+                log('Readme not exists on this repo');
             });
         });
     }, [owner, currentRepo]);

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useRef, useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Button from 'components/Button';
@@ -8,7 +7,8 @@ import MultiDropdown, { Option } from 'components/MultiDropdown';
 import Pager from 'components/Pager';
 import Icon from 'components/icons/Icon';
 import StarIcon from 'components/icons/StarIcon';
-import { API_ROOT, API_TOCKEN, REPO_TYPES, ROUTES } from 'config/constants';
+import { API_ROOT, REPO_TYPES, ROUTES } from 'config/constants';
+import { axiosGet } from 'utils/axios';
 import { dateFormat } from 'utils/index';
 import { Repo } from '../RepoPage';
 import styles from './RepoList.module.scss';
@@ -22,8 +22,7 @@ const RepoList: React.FC = () => {
     const totalPages = useRef(0);
 
     useEffect(() => {
-        axios.get(`${API_ROOT}/orgs/ktsstudio/repos`, {
-            headers: { 'Authorization': `Bearer ${API_TOCKEN}` },
+        axiosGet(`${API_ROOT}/orgs/ktsstudio/repos`, {
             params: { page, per_page: 9 }
         }).then(res => {
             setRepos(res.data);

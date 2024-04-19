@@ -1,7 +1,6 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Text from "components/Text";
-import { API_TOCKEN } from "config/constants";
+import { axiosGet } from "utils/axios";
 import styles from './Contributors.module.scss';
 import { Contributor, RepoUser } from ".";
 
@@ -14,9 +13,7 @@ const Contributors: React.FC<{ contributors: Contributor[] }> = ({ contributors 
                 return [];
             }
             const defs = contributors.map((user) => {
-                return axios.get(user.url, {
-                    headers: { 'Authorization': `Bearer ${API_TOCKEN}` }
-                });
+                return axiosGet(user.url);
             });
             return await Promise.all(defs);
         };
