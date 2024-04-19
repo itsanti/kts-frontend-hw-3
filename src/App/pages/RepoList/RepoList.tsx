@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { useRef, useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import Input from 'components/Input';
@@ -7,15 +8,43 @@ import MultiDropdown, { Option } from 'components/MultiDropdown';
 import Pager from 'components/Pager';
 import Icon from 'components/icons/Icon';
 import StarIcon from 'components/icons/StarIcon';
-import { REPO_TYPES, ROUTES } from 'config/constants';
-import repos from 'config/mocks/repos';
+import { API_ROOT, API_TOCKEN, REPO_TYPES, ROUTES } from 'config/constants';
 import { dateFormat } from 'utils/index';
+import { Repo } from '../RepoPage';
 import styles from './RepoList.module.scss';
-
 
 const RepoList: React.FC = () => {
     const [value, setValue] = useState<Option[]>([]);
     const [valueSearh, setvalueSearh] = useState('');
+    const [repos, setRepos] = useState<Repo[] | null>(null);
+    const [params] = useSearchParams()
+    const [page, setPage] = useState(0);
+    const totalPages = useRef(0);
+
+    useEffect(() => {
+        axios.get(`${API_ROOT}/orgs/ktsstudio/repos`, {
+            headers: { 'Authorization': `Bearer ${API_TOCKEN}` },
+            params: { page, per_page: 9 }
+        }).then(res => {
+            setRepos(res.data);
+            const linkHeader = res.headers.link;
+            if (linkHeader && linkHeader.includes(`rel="last"`)) {
+                const pages = linkHeader.match(/, .*\/repos\?page=(\d+).*rel="last"$/);
+                if (pages && totalPages.current === 0) {
+                    totalPages.current = parseInt(pages[1]);
+                    if (params.get('page')) {
+                        setPage(parseInt(params.get('page') as string));
+                    } else {
+                        setPage(1)
+                    }
+                };
+            }
+        });
+    }, [page, params]);
+
+    if (!repos) {
+        return null;
+    }
 
     return (
         <div className={styles.rootWrapper}>
@@ -44,7 +73,7 @@ const RepoList: React.FC = () => {
                     </Button>
                 </div>
                 <div className={styles.reposGrid}>
-                    {repos.slice(0, 9).map(repo => (
+                    {repos.map(repo => (
                         <Link
                             key={repo.id}
                             to={`${ROUTES.repops}/${repo.owner.login}/${repo.name}`}
@@ -62,7 +91,9 @@ const RepoList: React.FC = () => {
                         </Link>
                     ))}
                 </div>
-                <div className={styles.pager} ><Pager total={9} currentPage={1} /></div>
+                {totalPages.current > 0 && <div className={styles.pager} >
+                    <Pager total={totalPages.current} currentPage={page} setPage={setPage} />
+                </div>}
             </section>
         </div >
     );

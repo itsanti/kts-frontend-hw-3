@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Text from 'components/Text';
 import Icon from 'components/icons/Icon';
 import LinkIcon from 'components/icons/LinkIcon';
-import { API_TOCKEN, API_ROOT, ROUTES } from 'config/constants';
+import { API_TOCKEN, API_ROOT } from 'config/constants';
 import Contributors from './components/Contributors';
 import Languages from './components/Languages';
 import RepoStat from './components/RepoStat';
@@ -15,11 +15,12 @@ import { Repo } from '.';
 const RepoPage: React.FC = () => {
     const { owner, repo: currentRepo } = useParams();
 
-    const [contributors, setContributors] = React.useState([]);
-    const [repo, setRepo] = React.useState<Repo | null>(null);
-    const [readmeHtml, setReadmeHtml] = React.useState('');
+    const [contributors, setContributors] = useState([]);
+    const [repo, setRepo] = useState<Repo | null>(null);
+    const [readmeHtml, setReadmeHtml] = useState('');
+    const navigate = useNavigate();
 
-    React.useEffect(() => {
+    useEffect(() => {
         axios.get(`${API_ROOT}/repos/${owner}/${currentRepo}`, {
             headers: { 'Authorization': `Bearer ${API_TOCKEN}` }
         }).then(res => {
@@ -44,7 +45,10 @@ const RepoPage: React.FC = () => {
     return (
         <section className={styles.root}>
             <header className={styles.header}>
-                <Link to={ROUTES.index}>
+                <Link to={'..'} onClick={(e) => {
+                    e.preventDefault();
+                    navigate(-1);
+                }}>
                     <Icon width={32} height={32} viewBox="0 0 32 32">
                         <path d="M20.1201 26.56L11.4268 17.8667C10.4001 16.84 10.4001 15.16 11.4268 14.1333L20.1201 5.44" stroke="#1F883D" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                     </Icon>

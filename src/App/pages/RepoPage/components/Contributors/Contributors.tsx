@@ -1,14 +1,14 @@
 import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Text from "components/Text";
 import { API_TOCKEN } from "config/constants";
 import styles from './Contributors.module.scss';
 import { Contributor, RepoUser } from ".";
 
 const Contributors: React.FC<{ contributors: Contributor[] }> = ({ contributors }) => {
-    const [repoUsers, setRepoUsers] = React.useState<RepoUser[]>([]);
+    const [repoUsers, setRepoUsers] = useState<RepoUser[]>([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const getUserNames = async () => {
             if (!contributors) {
                 return [];

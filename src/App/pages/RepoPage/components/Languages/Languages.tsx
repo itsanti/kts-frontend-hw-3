@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Text from "components/Text";
 import { API_TOCKEN } from "config/constants";
 import colors from "./github-colors";
@@ -27,8 +27,8 @@ const calculate = (languages: PercentColorsNumber): PercentColors => {
 }
 
 const Languages: React.FC<{ langUrl: string; }> = ({ langUrl }) => {
-    const [languages, setLanguages] = React.useState<PercentColorsNumber | null>(null);
-    React.useEffect(() => {
+    const [languages, setLanguages] = useState<PercentColorsNumber | null>(null);
+    useEffect(() => {
         axios.get<PercentColorsNumber>(langUrl, {
             headers: { 'Authorization': `Bearer ${API_TOCKEN}` }
         }).then(res => {

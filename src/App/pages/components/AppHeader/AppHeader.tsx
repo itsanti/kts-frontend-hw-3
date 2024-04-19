@@ -1,7 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import Icon from 'components/icons/Icon';
-import { ROUTES } from 'config/constants';
 import styles from './AppHeader.module.scss';
 
 const AppHeader: React.FC = () => {
@@ -19,7 +17,7 @@ const AppHeader: React.FC = () => {
                             </clipPath>
                         </defs>
                     </Icon>
-                    <NavLink style={{ textDecoration: 'inherit' }} to={ROUTES.index}><span>GitHub Client</span></NavLink>
+                    <span>GitHub Client</span>
                 </div>
                 <div className={styles.profile}>
                     <Icon width={32} height={32} viewBox="0 0 32 32">
