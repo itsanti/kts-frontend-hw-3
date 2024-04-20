@@ -1,6 +1,7 @@
-import React from 'react';
-import Loader from '../Loader';
 import classNames from 'classnames/bind';
+import React from 'react';
+import Text from 'components/Text';
+import Loader from '../Loader';
 import styles from './button.module.scss';
 
 const cx = classNames.bind(styles);
@@ -10,6 +11,8 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
   /** Текст кнопки */
   children: React.ReactNode;
+  className: string;
+  disabled: boolean;
 };
 
 const Button: React.FC<ButtonProps> = ({ children, loading, className, disabled, ...attrs }) => {
@@ -22,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({ children, loading, className, disabled,
         disabled: (loading && disabled) || disabled
       },
     )} disabled={loading || disabled} {...attrs}>
-      {loading && <Loader size="s" />}{children}
+      {loading && <Loader size="s" />}<Text tag="span" view='button'>{children}</Text>
     </button>
   );
 };

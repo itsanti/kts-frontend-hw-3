@@ -1,4 +1,6 @@
+import cn from 'classnames';
 import React from 'react';
+import styles from './loader.module.scss';
 
 export type LoaderProps = {
     /** Размер */
@@ -34,8 +36,8 @@ const SizeL: React.FC<CustomClass> = ({ className }) => {
 }
 
 const Loader: React.FC<LoaderProps> = ({ size, className }) => {
-    return (size === undefined || size === 'l') ? <SizeL className={className} /> : (
-        size === 's' ? <SizeS className={className} /> : <SizeM className={className} />
+    return (size === undefined || size === 'l') ? <SizeL className={cn(className, styles.loader)} /> : (
+        size === 's' ? <SizeS className={cn(className, styles.loader)} /> : <SizeM className={cn(className, styles.loader)} />
     );
 };
 

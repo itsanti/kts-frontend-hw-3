@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './checkbox.module.scss';
 import CheckIcon from '../icons/CheckIcon';
+import styles from './checkbox.module.scss';
 
 export type CheckBoxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

@@ -1,8 +1,12 @@
+import cn from 'classnames'
 import * as React from 'react'
+import styles from './icon.module.scss'
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
     className?: string;
     color?: 'primary' | 'secondary' | 'accent';
+    width?: number;
+    height?: number;
 };
 
 export const COLOR_MAP: { [key: string]: string } = {
@@ -16,17 +20,17 @@ const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
     color = "notset",
     width = 24,
     height = 24,
-    viewBox = '0 0 24 24',
     className,
     children,
     ...attrs
 }) => {
     return (
         <svg
-            className={className}
+            className={cn(className, styles.icon)}
             width={width}
             height={height}
-            viewBox={viewBox}
+            color={color}
+            preserveAspectRatio='xMidYMid meet'
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             {...attrs}

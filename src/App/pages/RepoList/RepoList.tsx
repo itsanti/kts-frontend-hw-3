@@ -81,7 +81,7 @@ const RepoList: React.FC = () => {
                             <Card image={repo.owner.avatar_url}
                                 className={styles.card}
                                 captionSlot={<p className={styles.captionSlot}>
-                                    <StarIcon className={styles.starIcon} width={14} height={14} viewBox='0 0 14 14' />
+                                    <StarIcon className={styles.starIcon} width={14} height={14} />
                                     {repo.stargazers_count} <span className={styles.updated_at}>Updated {dateFormat(repo.updated_at)}</span>
                                 </p>}
                                 title={repo.name}

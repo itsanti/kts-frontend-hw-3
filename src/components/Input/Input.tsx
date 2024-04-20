@@ -1,5 +1,6 @@
-import React from 'react';
+/* eslint-disable react/display-name */
 import classNames from 'classnames/bind';
+import React, { forwardRef, useCallback } from 'react';
 import styles from './input.module.scss';
 
 const cx = classNames.bind(styles);
@@ -16,11 +17,14 @@ export type InputProps = Omit<
   afterSlot?: React.ReactNode;
 };
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ value, onChange, afterSlot, placeholder, className, ...attrs }, ref) => {
+    const handleChange = useCallback((ev: React.ChangeEvent<HTMLInputElement>): void => {
+      onChange(ev.target.value);
+    }, [onChange]);
     return (
       <div className={cx(className, styles.inputWrapper)}>
-        <input placeholder={placeholder} value={value} ref={ref} type="text" onChange={(ev) => onChange(ev.target.value)} {...attrs} />{afterSlot}
+        <input placeholder={placeholder} value={value} ref={ref} type="text" onChange={handleChange} {...attrs} />{afterSlot}
       </div>
     );
   });

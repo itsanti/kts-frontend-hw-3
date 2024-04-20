@@ -32,6 +32,7 @@
 
     &::placeholder {
       color: var(--input-placeholder);
+      opacity: 1;
     }
 
     &:focus {

@@ -46,7 +46,7 @@ const Pager: React.FC<PagerProps> = ({ currentPage, total, className, setPage })
 
   return (
     <div className={cx(styles.root, className)}>
-      <Button onClick={() => prevHandler(currentPage)} className={styles.pageBtnPrev}><Icon width={32} height={32} viewBox='0 0 32 32'>
+      <Button onClick={() => prevHandler(currentPage)} className={styles.pageBtnPrev}><Icon width={32} height={32}>
         <path d="M20.62 26.5599L11.9267 17.8666C10.9 16.8399 10.9 15.1599 11.9267 14.1333L20.62 5.43994" stroke="#AFADB5" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
       </Icon></Button>
       <div className={styles.pages}>
@@ -56,7 +56,7 @@ const Pager: React.FC<PagerProps> = ({ currentPage, total, className, setPage })
           })} key={index}><Text>{btn + 1}</Text></Button>
         ))}
       </div>
-      <Button onClick={() => nextHandler(currentPage)} className={styles.pageBtnNext}><Icon width={32} height={32} viewBox='0 0 32 32'>
+      <Button onClick={() => nextHandler(currentPage)} className={styles.pageBtnNext}><Icon width={32} height={32}>
         <path d="M12.38 26.5599L21.0733 17.8666C22.1 16.8399 22.1 15.1599 21.0733 14.1333L12.38 5.43994" stroke="#151411" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
       </Icon></Button>
     </div >
