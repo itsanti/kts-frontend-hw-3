@@ -11,7 +11,7 @@ interface SearchProps {
 const Search: React.FC<SearchProps> = ({ className }) => {
     const [valueSearh, setvalueSearh] = useState('');
     return (
-        <div className={className}>
+        <form className={className} onSubmit={(ev) => ev.preventDefault()}>
             <Input className={styles.searchInput} onChange={setvalueSearh} value={valueSearh} placeholder='Enter organization name' />
             <Button>
                 <Icon>
@@ -25,7 +25,7 @@ const Search: React.FC<SearchProps> = ({ className }) => {
                     </defs>
                 </Icon>
             </Button>
-        </div>
+        </form>
     );
 }
 

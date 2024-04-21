@@ -1,7 +1,7 @@
+@import "styles/mixins.scss";
+
 .root {
-  width: 1237px;
-  margin: 0 auto;
-  min-height: calc(100vh - 66px);
+  @include main-layout;
   overflow: auto;
 }
 
@@ -19,14 +19,13 @@
 }
 
 .orgAvatar {
-  width: 40px;
-  height: 40px;
+  @include square(40px);
   border-radius: var(--border-radius);
 }
 
 .link {
   composes: link from global;
-  font-weight: 700 !important;
+  font-weight: 700;
 }
 
 .topics {

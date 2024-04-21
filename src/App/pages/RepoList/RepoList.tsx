@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Card from 'components/Card';
 import Pager from 'components/Pager';
+import Text from 'components/Text';
 import StarIcon from 'components/icons/StarIcon';
 import { API_ROOT, ROUTES } from 'config/constants';
 import { axiosGet } from 'utils/axios';
@@ -16,6 +17,11 @@ const RepoList: React.FC = () => {
     const [params] = useSearchParams()
     const [page, setPage] = useState(0);
     const totalPages = useRef(0);
+    const navigate = useNavigate()
+
+    const cardClickHandler = (repo: Repo): void => {
+        navigate(`${ROUTES.repops}/${repo.owner.login}/${repo.name}`);
+    };
 
     useEffect(() => {
         axiosGet(`${API_ROOT}/orgs/ktsstudio/repos`, {
@@ -44,26 +50,21 @@ const RepoList: React.FC = () => {
     return (
         <div className={styles.rootWrapper}>
             <section className={styles.root}>
-                <h1 className={styles.pageTitle}>List of organization repositories</h1>
+                <Text tag='h1' className={styles.pageTitle}>List of organization repositories</Text>
                 <Filter className={styles.repoType} />
                 <Search className={styles.search} />
                 <div className={styles.reposGrid}>
                     {repos.map(repo => (
-                        <Link
-                            key={repo.id}
-                            to={`${ROUTES.repops}/${repo.owner.login}/${repo.name}`}
-                            style={{ textDecoration: 'none', color: 'inherit' }}
-                        >
-                            <Card image={repo.owner.avatar_url}
-                                className={styles.card}
-                                captionSlot={<p className={styles.captionSlot}>
-                                    <StarIcon className={styles.starIcon} width={14} height={14} />
-                                    {repo.stargazers_count} <span className={styles.updated_at}>Updated {dateFormat(repo.updated_at)}</span>
-                                </p>}
-                                title={repo.name}
-                                subtitle={repo.description}
-                            />
-                        </Link>
+                        <Card key={repo.id} image={repo.owner.avatar_url}
+                            className={styles.card}
+                            captionSlot={<Text tag='p' className={styles.captionSlot}>
+                                <StarIcon className={styles.starIcon} width={14} height={14} />
+                                {repo.stargazers_count} <span className={styles.updated_at}>Updated {dateFormat(repo.updated_at)}</span>
+                            </Text>}
+                            title={repo.name}
+                            subtitle={repo.description}
+                            onClick={() => cardClickHandler(repo)}
+                        />
                     ))}
                 </div>
                 {totalPages.current > 0 && <div className={styles.pager} >

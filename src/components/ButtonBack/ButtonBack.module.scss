@@ -1,0 +1,45 @@
+.btn {
+  display: inline-flex;
+  min-height: 52px;
+  padding: var(--space-s) var(--space-l);
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-xxs);
+  border-radius: var(--border-radius);
+  background: var(--button-primary-bg);
+  border: none;
+  color: var(--button-primary-text);
+  font-family: "Roboto";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0.5em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  svg path {
+    fill: var(--button-primary-text);
+  }
+
+  &:not(.disabled):not(.loading):active {
+    background: var(--button-primary-bg-active);
+    color: var(--button-primary-text-active);
+    svg path {
+      fill: var(--button-primary-text-active);
+    }
+  }
+  &:not(.disabled):not(.loading):hover {
+    background: var(--button-primary-bg-hover);
+    color: var(--button-primary-text-hover);
+    svg path {
+      fill: var(--button-primary-text-hover);
+    }
+  }
+  &.disabled {
+    background: var(--button-primary-bg-disabled);
+    color: var(--button-primary-text-disabled);
+    svg path {
+      fill: var(--button-primary-text-disabled);
+    }
+  }
+}

@@ -21,11 +21,10 @@
 
   // Box.
   & + label:before {
-    content: '';
+    @include square(38px);
+    content: "";
     display: inline-block;
     vertical-align: text-top;
-    width: 38px;
-    height: 38px;
     background: var(--checkbox-bg);
     border: 1px solid var(--checkbox-border);
   }

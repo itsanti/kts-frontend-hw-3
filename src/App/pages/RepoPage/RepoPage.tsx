@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import ButtonBack from 'components/ButtonBack';
 import Text from 'components/Text';
-import Icon from 'components/icons/Icon';
 import LinkIcon from 'components/icons/LinkIcon';
 import { API_ROOT } from 'config/constants';
 import { axiosGet } from 'utils/axios';
@@ -19,7 +19,6 @@ const RepoPage: React.FC = () => {
     const [contributors, setContributors] = useState([]);
     const [repo, setRepo] = useState<Repo | null>(null);
     const [readmeHtml, setReadmeHtml] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         axiosGet(`${API_ROOT}/repos/${owner}/${currentRepo}`).then(res => {
@@ -44,14 +43,7 @@ const RepoPage: React.FC = () => {
     return (
         <section className={styles.root}>
             <header className={styles.header}>
-                <Link to={'..'} onClick={(e) => {
-                    e.preventDefault();
-                    navigate(-1);
-                }}>
-                    <Icon width={32} height={32}>
-                        <path d="M20.1201 26.56L11.4268 17.8667C10.4001 16.84 10.4001 15.16 11.4268 14.1333L20.1201 5.44" stroke="#1F883D" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                    </Icon>
-                </Link>
+                <ButtonBack />
                 <img className={styles.orgAvatar} src={repo.organization.avatar_url} alt={repo.organization.login} />
                 <Text view='title'>{repo.name}</Text>
             </header>

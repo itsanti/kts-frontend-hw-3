@@ -1,3 +1,5 @@
+@import "styles/mixins.scss";
+
 .root {
   width: 296px;
 }
@@ -26,10 +28,9 @@
   }
 }
 .boollet {
+  @include square(8px);
   display: inline-block;
   margin-right: var(--space-xxs);
-  width: 8px;
-  height: 8px;
   border-radius: 50%;
 }
 
