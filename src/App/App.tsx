@@ -1,5 +1,4 @@
-import React from 'react'
-import './App.scss'
+import * as React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from 'components/Layout'
 import { ROUTES } from 'config/constants'

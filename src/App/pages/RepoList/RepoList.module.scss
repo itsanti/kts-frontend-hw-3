@@ -28,9 +28,6 @@
   width: 100%;
   gap: 19px;
   margin-bottom: 36px;
-  .searchInput {
-    flex-grow: 1;
-  }
 }
 
 .reposGrid {
@@ -41,7 +38,8 @@
 }
 
 .card {
-  width: 360px;
+  width: 100%;
+  max-width: 360px;
   height: 100%;
 }
 
