@@ -1,10 +1,8 @@
-import classNames from 'classnames/bind';
+import cn from 'classnames';
 import React from 'react';
 import Text from 'components/Text';
 import Loader from '../Loader';
 import styles from './button.module.scss';
-
-const cx = classNames.bind(styles);
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Состояние загрузки */
@@ -17,8 +15,8 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const Button: React.FC<ButtonProps> = ({ children, loading, className, disabled, ...attrs }) => {
   return (
-    <button className={cx(
-      'btn',
+    <button className={cn(
+      styles.btn,
       className,
       {
         loading,

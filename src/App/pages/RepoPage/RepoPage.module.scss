@@ -70,10 +70,12 @@
     padding: 32px;
     font-size: 18px;
 
-    :global(.heading-element) {
+    :global(.markdown-heading) {
       display: flex;
-      gap: 4px;
       align-items: center;
+    }
+    :global(.heading-element) {
+      order: 1;
       font-size: 24px;
       font-weight: 700;
       margin: 0;
