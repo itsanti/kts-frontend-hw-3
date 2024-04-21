@@ -1,3 +1,4 @@
+import MarkdownPreview from '@uiw/react-markdown-preview';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ButtonBack from 'components/ButtonBack';
@@ -11,7 +12,6 @@ import Languages from './components/Languages';
 import RepoStat from './components/RepoStat';
 import styles from './RepoPage.module.scss';
 import { Repo } from '.';
-
 
 const RepoPage: React.FC = () => {
     const { owner, repo: currentRepo } = useParams();
@@ -48,13 +48,13 @@ const RepoPage: React.FC = () => {
                 <Text view='title'>{repo.name}</Text>
             </header>
             {repo.homepage && <div className={styles.subHeader}>
-                <LinkIcon /><a className={styles.link} href={repo.homepage}>{repo.homepage.substring(8)}</a>
+                <LinkIcon /><a target='_blank' rel='noreferrer' className={styles.link} href={repo.homepage}>{repo.homepage.substring(8)}</a>
             </div>}
             <ul className={styles.topics}>{repo.topics.map((topic, index) => (
                 <li key={index}>{topic}</li>
             ))}</ul>
             <section className={styles.repoStat}>
-                <RepoStat forks_count={repo.forks_count} subscribers_count={repo.subscribers_count} stargazers_count={repo.stargazers_count} />
+                <RepoStat forksCount={repo.forks_count} subscribersCount={repo.subscribers_count} stargazersCount={repo.stargazers_count} />
             </section>
             <section className={styles.repoDevInfo}>
                 {contributors.length > 0 && <Contributors contributors={contributors} />}
@@ -62,7 +62,9 @@ const RepoPage: React.FC = () => {
             </section>
             {readmeHtml.length > 0 && <section className={styles.readme}>
                 <p>README.md</p>
-                <div className={styles.readmeRaw} dangerouslySetInnerHTML={{ __html: readmeHtml }} />
+                <MarkdownPreview source={readmeHtml} wrapperElement={{
+                    "data-color-mode": "light"
+                }} className={styles.readmeRaw} />
             </section>}
         </section >
     );

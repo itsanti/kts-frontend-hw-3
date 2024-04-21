@@ -28,11 +28,11 @@ const Contributors: React.FC<{ contributors: Contributor[] }> = ({ contributors 
         <div className={styles.root}>
             <div className={styles.title}><Text view="p-18" className={styles.header}>Contributors</Text>{contributors.length > 0 && <span className={styles.badge}>{contributors.length}</span>}</div>
             <ul className={styles.list}>
-                {contributors.map((user) => (
+                {repoUsers.map((user) => (
                     <li key={user.id}>
                         <img className={styles.avatar} src={user.avatar_url} alt={user.login} />
-                        <Text view="p-16" className={styles.user}>{user.login}</Text> <Text view="p-16" color="secondary">
-                            {repoUsers.filter(u => user.login === u.login).at(0)?.name}</Text>
+                        <Text view="p-16" className={styles.user}>{user.login}</Text>
+                        <Text view="p-16" color="secondary">{user.name}</Text>
                     </li>
                 ))}
             </ul>

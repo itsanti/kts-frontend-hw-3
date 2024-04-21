@@ -11,6 +11,7 @@
     "lint:fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
   "dependencies": {
+    "@uiw/react-markdown-preview": "^5.1.1",
     "axios": "^1.6.8",
     "classnames": "^2.5.1",
     "react": "^18.2.0",

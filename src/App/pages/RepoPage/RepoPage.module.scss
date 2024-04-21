@@ -69,13 +69,14 @@
   .readmeRaw {
     padding: 32px;
     font-size: 18px;
-    line-height: 22px;
-    :global(.markdown-heading) {
+
+    :global(.heading-element) {
       display: flex;
       gap: 4px;
       align-items: center;
       font-size: 24px;
       font-weight: 700;
+      margin: 0;
     }
     :global(p) {
       margin: 10px 0;
