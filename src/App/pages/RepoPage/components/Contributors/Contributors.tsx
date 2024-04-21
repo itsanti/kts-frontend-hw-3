@@ -26,7 +26,7 @@ const Contributors: React.FC<{ contributors: Contributor[] }> = ({ contributors 
 
     return (
         <div className={styles.root}>
-            <Text view="p-18" className={styles.header}>Contributors</Text>
+            <div className={styles.title}><Text view="p-18" className={styles.header}>Contributors</Text>{contributors.length > 0 && <span className={styles.badge}>{contributors.length}</span>}</div>
             <ul className={styles.list}>
                 {contributors.map((user) => (
                     <li key={user.id}>
