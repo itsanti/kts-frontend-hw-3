@@ -19,6 +19,7 @@
     "baseUrl": "src",
     "paths": {
       "components": ["components/*"],
+      "store": ["store/*"],
       "config": ["config/*"],
       "styles": ["styles/*"],
       "utils": ["utils/*"]

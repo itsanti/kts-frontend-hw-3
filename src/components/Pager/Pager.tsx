@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import { useNavigate, createSearchParams } from 'react-router-dom';
+import { useNavigate, createSearchParams, useSearchParams } from 'react-router-dom';
 import Button from 'components/Button';
 import Text from 'components/Text';
 import Icon from 'components/icons/Icon';
@@ -19,12 +19,13 @@ export type PagerProps = {
 
 const Pager: React.FC<PagerProps> = ({ currentPage, total, className, setPage }) => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
 
   const goToPage = (page: number) => {
     setPage(page);
     const options = {
       pathname: '/repos/',
-      search: `${createSearchParams({ page: '' + page })}`,
+      search: `${createSearchParams({ ...Object.fromEntries(params), page: '' + page })}`,
     };
     navigate(options, { replace: true });
   }
