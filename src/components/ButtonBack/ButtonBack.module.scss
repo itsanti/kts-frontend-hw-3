@@ -1,0 +1,11 @@
+@import "styles/mixins.scss";
+
+.root {
+  @include square(32px);
+  background: transparent;
+  padding: 0;
+  min-height: 32px;
+  &:hover {
+    background: transparent !important;
+  }
+}

@@ -1,0 +1,93 @@
+@import "styles/mixins.scss";
+
+.root {
+  @include main-layout;
+  overflow: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  margin: 40px 0;
+}
+
+.subHeader {
+  display: flex;
+  align-items: center;
+  column-gap: var(--space-xxs);
+}
+
+.orgAvatar {
+  @include square(40px);
+  border-radius: var(--border-radius);
+}
+
+.link {
+  composes: link from global;
+  font-weight: 700;
+}
+
+.topics {
+  list-style-type: none;
+  display: flex;
+  column-gap: var(--space-xxs);
+  padding: 0;
+  margin: var(--space-l) 0;
+  li {
+    padding: 4px var(--space-m);
+    border-radius: 20px;
+    color: #0066cc;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #daedff;
+  }
+}
+
+.repoStat {
+  margin-bottom: var(--space-l);
+}
+
+.repoDevInfo {
+  width: 804px;
+  display: grid;
+  column-gap: 80px;
+  grid-template-columns: minmax(290px, max-content) 1fr;
+  margin-bottom: var(--space-xl);
+}
+
+.readme {
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  margin-bottom: 80px;
+  > p {
+    padding: var(--space-m);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .readmeRaw {
+    padding: 32px;
+    font-size: 18px;
+
+    :global(.markdown-heading) {
+      display: flex;
+      align-items: center;
+    }
+    :global(.heading-element) {
+      order: 1;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+    }
+    :global(p) {
+      margin: 10px 0;
+      & + ul {
+        margin-top: -10px;
+      }
+    }
+    :global(ul) {
+      margin: 0 0 10px 0;
+    }
+  }
+}

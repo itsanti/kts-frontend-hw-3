@@ -1,0 +1,10 @@
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin main-layout {
+  width: 1237px;
+  margin: 0 auto;
+  min-height: calc(100vh - 66px);
+}
