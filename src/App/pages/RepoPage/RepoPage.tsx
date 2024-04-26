@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ButtonBack from 'components/ButtonBack';
+import Loader from 'components/Loader';
 import Text from 'components/Text';
 import LinkIcon from 'components/icons/LinkIcon';
 import { GitHubPageStore } from 'store/GitHubStore';
@@ -21,7 +22,7 @@ const RepoPage: React.FC = () => {
     }, [owner, currentRepo, gitHubPageStore]);
 
     if (!gitHubPageStore.repo) {
-        return null;
+        return <Loader />;
     }
 
     return (

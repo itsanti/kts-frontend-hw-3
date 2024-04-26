@@ -1,31 +1,32 @@
 import { makeObservable, action, computed, observable, runInAction } from "mobx";
 import { API_ROOT } from "config/constants";
-import { RepoContributorApi, RepoContributorModel, RepoItemApi, RepoItemModel, normalizeRepoContributor, normalizeRepoItem } from "store/models/gitHub";
+import { RepoItemApi, RepoItemModel, normalizeRepoItem } from "store/models/gitHub";
 import { axiosGet } from "utils/axios";
 import { log } from "utils/log";
 import { Meta } from "utils/meta";
 import { ILocalStore } from "utils/useLocalStore";
+import {GitHubContributorsStore} from '.'
 
-type PrivateFields = '_repo' | '_meta' | '_contributors' | '_readme';
+
+type PrivateFields = '_repo' | '_meta' | '_readme' | '_contributorsStore';
 
 export default class GitHubPageStore implements ILocalStore {
     private _repo: RepoItemModel | null = null;
     private _meta: Meta = Meta.initial;
-    private _contributors: RepoContributorModel[] | null = null;
+    private _contributorsStore: GitHubContributorsStore | null = null;
     private _readme = '';
 
     constructor() {
         makeObservable<GitHubPageStore, PrivateFields>(this, {
-            _repo: observable,
-            _contributors: observable.ref,
+            _repo: observable.ref,
+            _contributorsStore: observable,
             _readme: observable,
             _meta: observable,
             repo: computed,
-            contributors: computed,
             readme: computed,
             meta: computed,
             getRepo: action,
-            getRepoSuccess: action,
+            loadReadme: action,
         });
       }
 
@@ -37,8 +38,11 @@ export default class GitHubPageStore implements ILocalStore {
         return this._repo;
     }
 
-    get contributors(): RepoContributorModel[] | null {
-        return this._contributors;
+    get contributors() {
+        if (this._contributorsStore?.contributors) {
+            return this._contributorsStore?.contributors;
+        }
+        return [];
     }
 
     get readme(): string {
@@ -48,41 +52,37 @@ export default class GitHubPageStore implements ILocalStore {
     async getRepo(owner: string, currentRepo: string): Promise<void> {
         this._meta = Meta.loading;
         this._repo = null;
-        this._contributors = null;
         this._readme = '';
        
         const response = await axiosGet<RepoItemApi>(`${API_ROOT}/repos/${owner}/${currentRepo}`);
-        if (response.status === 200) {
-            this.getRepoSuccess(response.data, owner, currentRepo);
-        }
+        
+        runInAction(() => {
+            if (response.status === 200) {
+                try {
+                    this._meta = Meta.success;
+                    this._repo = normalizeRepoItem(response.data);
+                    this._contributorsStore =  new GitHubContributorsStore(this._repo.contributorsUrl);
+                    this._contributorsStore.getContributors();
+                    this.loadReadme(owner, currentRepo);
+                } catch (e) {
+                    log(e);
+                    this._meta = Meta.error;
+                    this._repo = null;
+                }
+            }
+
+        })
     }
 
-    async getRepoSuccess (repo: RepoItemApi, owner: string, currentRepo: string): Promise<void> {
-        this._meta = Meta.success;
-        try {
-            this._repo = normalizeRepoItem(repo);
-            // TODO: move to separate store
-            const contributorsResponse = await axiosGet<RepoContributorApi[]>(repo.contributors_url);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            this._contributors = contributorsResponse.data.map(normalizeRepoContributor);
-
+    async loadReadme(owner: string, currentRepo: string): Promise<void> {
+        const readmeResponse = await axiosGet<string>(`${API_ROOT}/repos/${owner}/${currentRepo}/readme`, {
+            headers: { 'Accept': 'application/vnd.github.html+json' }});
             runInAction(() => {
-                axiosGet<string>(`${API_ROOT}/repos/${owner}/${currentRepo}/readme`, {
-                    headers: { 'Accept': 'application/vnd.github.html+json' }
-                }).then((readmeResponse) => {
-                    this._readme  = readmeResponse.data;
-                }).catch(() => {
-                    log('Readme not exists on this repo');
-                    this._readme = '';
-                });
+                this._readme  = readmeResponse.data;
             })
-
-        } catch (e) {
-            log(e);
-            this._meta = Meta.error;
-            this._repo = null;
-        }
     }
 
-    destroy(): void {}
+    destroy(): void {
+        this._contributorsStore?.destroy();
+    }
 }
